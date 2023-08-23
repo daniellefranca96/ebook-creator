@@ -1,0 +1,9 @@
+.idea/
+db/
+venv/
+.env
+__pycache__/
+output/
+api/__pycache__/
+chroma_db_oai/
+

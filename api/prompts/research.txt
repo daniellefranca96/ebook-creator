@@ -1,0 +1,3 @@
+Conduct thorough research on the topic related to {chapter_name}
+Draw information from a variety of reliable sources.
+Make them a comprehensive text explaining the topic, the text generated will be used as research to write a chapter of a book about the topic.

@@ -1,0 +1,3 @@
+As a experieced writer write an engaging and informational chapter with the title {chapter} with the following research:<{research}>for a book about the theme {theme}.
+Do not deviate from main theme of chapter. Do not write Introduction and Conclusion sections. Do not break the text in to sections or subsections. Do not create a chapter name.
+At least 2000 words or more
