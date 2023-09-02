@@ -1,8 +1,9 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from flask_restx import Api, Resource, fields, reqparse
+from werkzeug.exceptions import BadRequest
 
 from api.chapter_creator import ChapterCreator
 from api.ebook_creator import EbookCreator

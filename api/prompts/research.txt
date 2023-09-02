@@ -1,3 +1,1 @@
-Conduct thorough research on the topic related to {chapter_name}
-Draw information from a variety of reliable sources.
-Make them a comprehensive text explaining the topic, the text generated will be used as research to write a chapter of a book about the topic.
+Research the topic "{chapter_name}" with a focus on the discussion points {topics}. Draw from a variety of reputable sources. Collate your findings into a detailed and cohesive text that will be used as the basis for a book chapter on the aforementioned subject.

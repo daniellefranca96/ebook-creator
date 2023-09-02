@@ -1,5 +1,2 @@
-Create the the title and outline for an ebook about: {theme} that contain the following topics {topics}, 
-and everything more shown in you research as relevant on the theme;
-Remember to make research about the theme on the web. Do not include Introduction or Conclusion chapters.
-Always return the outline in the format:
-{"title":"", "table_of_contents":["Title of Chapter"]}
+Create a title and outline for an ebook on the subject: {theme}. Ensure it includes the specified topics {topics} and any other relevant topics found in your research. For each chapter, provide a list of pertinent subtopics. Do not add Introduction or Conclusion chapters. Your research should include online sources. The outline should be returned in this format:
+{"title":"", "table_of_contents":{["chapter_name":"", "list_of_topics":[]}]}
