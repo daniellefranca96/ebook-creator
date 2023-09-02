@@ -68,16 +68,24 @@ class EbookCreator(Creator):
         if ebook_id is None:
             ebook = self.eb.create_ebook(theme)
             ebook_id = ebook['ebook_id']
-        ebook = self.gen_table_of_contents(ebook_id)
-        self.eb.set_values(ebook, ebook_id)
-        ebook['chapters'] = []
-        i = 1
-        for chapter in ebook['table_of_contents']:
-            ebook['chapters'].append({i:self.cc.generate_chapter(ebook_id, i)})
-            i = i + 1
+            ebook['chapters'] = {}
+            self.set_values(ebook, ebook_id)
+        else:
+            ebook = self.eb.get_book(ebook_id)
+        if 'table_of_contents' not in ebook.keys():
+            ebook = self.gen_table_of_contents(ebook_id)
+        self.generate_chapters(ebook, ebook_id)
         ebook['sources'] = self.get_sources(ebook['theme'])
         document_creator.create_docx(ebook, ebook_id)
         return ebook_id
+
+    def generate_chapters(self, ebook, ebook_id):
+        if len(ebook['chapters'].keys()) != len(ebook['table_of_contents']):
+            i = 1
+            for chapter in ebook['table_of_contents']:
+                if len(ebook['chapters'].keys()) != i:
+                    ebook['chapters'][str(i)] = self.cc.generate_chapter(ebook_id, i)
+                i = i + 1
 
     def generate_cover(self, ebook_id, desc_image=None):
         ebook = self.eb.get_book(ebook_id)

@@ -10,12 +10,11 @@ def verify_table_of_contents(ebook):
     return ebook['table_of_contents']
 
 
-def get_chapter_name(chapter_number, ebook):
+def get_chapter(chapter_number, ebook):
     index = int(chapter_number)-1
     table_of_contents = verify_table_of_contents(ebook)
-    chapter_name = table_of_contents[index]
-    print(chapter_name)
-    return chapter_name
+    chapter = table_of_contents[index]
+    return chapter
 
 
 class ChapterCreator(Creator):
@@ -27,11 +26,11 @@ class ChapterCreator(Creator):
     def generate_research(self, ebook_id, chapter_number) -> dict:
         chapter_number = str(chapter_number)
         ebook = self.eb.get_book(ebook_id)
-        chapter_name = get_chapter_name(chapter_number, ebook)
+        chapter = get_chapter(chapter_number, ebook)
         if 'research' not in ebook.keys():
             ebook['research'] = {}
         agent = self.get_zero_shot_agent([self.tool_search()])
-        response = agent.run(self.get_prompt('research').replace('{chapter_name}', chapter_name))
+        response = agent.run(self.get_prompt('research').replace('{chapter_name}', chapter['chapter_name']).replace('{topics}', str(chapter['list_of_topics'])))
         ebook['research'][chapter_number] = response
         self.eb.set_values(ebook, ebook_id)
         return response
@@ -43,7 +42,7 @@ class ChapterCreator(Creator):
             res = self.generate_research(ebook_id, chapter_number)
             ebook = self.eb.get_book(ebook_id)
             ebook['research'][chapter_number] = res
-        chapter_name = get_chapter_name(chapter_number, ebook)
+        chapter_name = get_chapter(chapter_number, ebook)['chapter_name']
         research = ebook['research'][chapter_number]
         response = self.gpt3(messages=[HumanMessage(content=self.get_prompt('chapter')
                                                     .replace('{chapter_name}', chapter_name)

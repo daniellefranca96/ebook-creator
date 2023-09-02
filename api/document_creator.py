@@ -21,11 +21,13 @@ def create_docx(ebook, ebook_id):
     document.add_page_break()
     tbo = document.add_heading('Table of Contents', 1)
     tbo.bold = True
+    i = 1
     for chapter in ebook['table_of_contents']:
-        document.add_paragraph(chapter)
+        document.add_paragraph(str(1)+" - "+chapter['chapter_name'])
+        i = i + 1
     document.add_page_break()
     for chapter in ebook['chapters'].keys():
-        title_c = document.add_heading(ebook['chapters'][chapter]['title'], 1)
+        title_c = document.add_heading(chapter+" - "+ebook['chapters'][chapter]['title'], 1)
         title_c.bold = True
         title_c.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         document.add_paragraph(ebook['chapters'][chapter]['text'])

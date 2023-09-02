@@ -1,16 +1,16 @@
 import logging
 from typing import List
-from langchain.chains.summarize import load_summarize_chain
-from langchain.chat_models import ChatOpenAI
-from langchain.chains.llm import LLMChain
-from langchain.prompts import PromptTemplate
-from langchain.chains.combine_documents.stuff import StuffDocumentsChain
+
 from langchain.callbacks.manager import (
     CallbackManagerForRetrieverRun,
 )
+from langchain.chains.llm import LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.document_transformers import Html2TextTransformer
+from langchain.prompts import PromptTemplate
 from langchain.retrievers.web_research import WebResearchRetriever
 from langchain.schema import Document
+
 from api.tools.async_html_loader import AsyncHTMLoaderFixed
 
 logger = logging.getLogger(__name__)
@@ -91,8 +91,8 @@ class WebResearchRetrieverFixed(WebResearchRetriever):
         prompt = PromptTemplate.from_template(prompt_template)
         llm_chain = LLMChain(llm=llm, prompt=prompt)
 
-        # Define StuffDocumentsChain
-        chain = StuffDocumentsChain(
-            llm_chain=llm_chain, document_variable_name="text"
-        )
-        return chain.run(docs)
+        text = ""
+        for d in docs:
+            text = text + llm_chain.run(d)
+
+        return docs
